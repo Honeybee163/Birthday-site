@@ -1,5 +1,6 @@
 from pathlib import Path
 import os
+import tempfile
 from dotenv import load_dotenv
 import dj_database_url
 import cloudinary
@@ -96,6 +97,16 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # ✅ MEDIA FILES (Cloudinary)
 # =========================
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+
+# In serverless environments (e.g. Vercel / Lambda), the app code directory
+# (often `/var/task`) is read-only. Django/Storages may still need a writable
+# directory for temporary uploads.
+TEMP_DIR = os.getenv("FILE_UPLOAD_TEMP_DIR") or tempfile.gettempdir()
+Path(TEMP_DIR).mkdir(parents=True, exist_ok=True)
+
+MEDIA_ROOT = os.getenv("MEDIA_ROOT", TEMP_DIR)
+MEDIA_URL = os.getenv("MEDIA_URL", "/media/")
+FILE_UPLOAD_TEMP_DIR = os.getenv("FILE_UPLOAD_TEMP_DIR", TEMP_DIR)
 
 # =========================
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
