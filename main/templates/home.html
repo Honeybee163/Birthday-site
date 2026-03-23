@@ -13,7 +13,6 @@
 body{
     margin:0;
     font-family:'Patrick Hand', cursive;
-    {% comment %} background:url("{% static 'bg1.png' %}") no-repeat center center fixed; {% endcomment %}
     background-size:cover;
     color:#5a3e36;
 }
@@ -203,7 +202,7 @@ body{
 .hero{
     flex-direction:column;
     text-align:center;
-}
+   
 
 .hero-text h1{
     font-size:45px;
@@ -219,7 +218,7 @@ body{
 </head>
 <body>
 
-{% include "base.html" %}
+{% comment %} {% include "base.html" %} {% endcomment %}
 
 <!-- HERO -->
 <div class="hero">
@@ -288,7 +287,7 @@ body{
         ♡ 𝑯𝒂𝒑𝒑𝒊𝒏𝒆𝒔𝒔 
     </div>
 
-    <div class="sticky quote" style="background:#ECD6CF">
+    <div class="sticky quote" style="background:#ECD6CF;">
         <h3>𝗠𝘆 𝗳𝗮𝘃𝗼𝘂𝗿𝗶𝘁𝗲 𝗤𝘂𝗼𝘁𝗲:</h3>
         We were never the same.You were December 31,And I was January 1.If you wanted, you could reach me in a day. To reach you, I had to wait 364 days.
     </div>
