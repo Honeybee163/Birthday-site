@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .form import NoteForm,MemoryForm
 from .models import Note,Memory
@@ -33,12 +33,12 @@ def write_note(request):
     return render(request,'write_note.html',{'form':form})
         
 def upload_memory(request):
-    if request.method=='POST':
-        form=MemoryForm(request.POST,request.FILES)
+    if request.method == 'POST':
+        form = MemoryForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            form.save()  # ✅ Cloudinary will handle file upload automatically
+            return redirect('upload_memory')  # or success page
     else:
-        form=MemoryForm()
-        
-    return render(request,'upload_memory.html',{'form':form})
-        
+        form = MemoryForm()
+
+    return render(request, 'upload_memory.html', {'form': form})
