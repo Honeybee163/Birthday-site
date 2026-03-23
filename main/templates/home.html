@@ -9,69 +9,64 @@
 <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
 
 <style>
-
+/* ============ BASE ============ */
 body{
     margin:0;
     font-family:'Patrick Hand', cursive;
     background-size:cover;
     color:#5a3e36;
+    overflow-x:hidden;
 }
 
-/* ================= NAVBAR ================= */
-
+/* ============ NAVBAR ============ */
 .nav{
     display:flex;
     justify-content:space-between;
     align-items:center;
     padding:20px 60px;
 }
-
 .nav h2{
     font-family:'Playfair Display', serif;
+    margin:0;
 }
-
 .nav ul{
     display:flex;
     list-style:none;
     gap:40px;
+    margin:0;
+    padding:0;
 }
-
 .nav ul li a{
     text-decoration:none;
     color:#5a3e36;
     font-size:20px;
 }
 
-/* ================= HERO ================= */
-
+/* ============ HERO ============ */
 .hero{
     padding:60px;
     display:flex;
     justify-content:space-between;
     align-items:center;
     flex-wrap:wrap;
+    gap:40px;
 }
-
 .hero-text{
     flex:1;
     min-width:300px;
 }
-
 .hero-text h1{
     font-family:'Playfair Display', serif;
     font-size:70px;
     margin:0;
 }
-
 .hero-text span{
     color:#d17b88;
 }
-
 .hero-text p{
     font-size:24px;
     margin:20px 0;
 }
-
 .diary-btn{
     display:inline-block;
     padding:12px 30px;
@@ -82,14 +77,12 @@ body{
     font-size:18px;
     transition:0.3s;
 }
-
 .diary-btn:hover{
     background:#d17b88;
     transform:scale(1.05);
 }
 
-/* ================= POLAROIDS ================= */
-
+/* ============ POLAROIDS ============ */
 .photo-area{
     flex:1;
     display:grid;
@@ -97,7 +90,6 @@ body{
     gap:25px;
     min-width:320px;
 }
-
 .polaroid{
     background:#ECD6CF;
     padding:10px 10px 30px;
@@ -105,48 +97,30 @@ body{
     border-radius:6px;
     transform:rotate(-3deg);
 }
+.polaroid:nth-child(2){ transform:rotate(4deg);}
+.polaroid:nth-child(3){ transform:rotate(2deg);}
+.polaroid:nth-child(4){ transform:rotate(-4deg);}
 
-
+/* ✅ Balanced desktop height + face‑safe centering */
 .polaroid img{
     width:100%;
-    height:200px;
+    height:300px;             /* keeps proper ratio on PC */
     object-fit:cover;
+    object-position:50% 25%;  /* keep face visible */
     border-radius:4px;
-  
-} 
-
-/* 👇 image 1 */
-.img1 {
-    object-position: 50% 30%;
+    transition:0.3s ease;
+}
+.polaroid img:hover{
+    transform:scale(1.03);
 }
 
-/* 👇 image 4 */
-.img4 {
-    object-position: 50% 35%;
-}
-
-.polaroid:nth-child(2){ transform:rotate(4deg); }
-.polaroid:nth-child(3){ transform:rotate(2deg); }
-.polaroid:nth-child(4){ transform:rotate(-4deg); }
-
-.polaroid:nth-child(1) img {
-    object-position: 60% 30%;
-}
-
-.polaroid:nth-child(4) img {
-    object-position: 60% 35%;
-}
-
-
-/* ================= CARDS ================= */
-
+/* ============ CARDS ============ */
 .sections{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
     gap:30px;
     padding:60px;
 }
-
 .card{
     background:white;
     padding:25px;
@@ -154,26 +128,20 @@ body{
     box-shadow:0 6px 20px rgba(0,0,0,0.08);
     text-align:center;
 }
-
-.card h3{
-    font-size:24px;
-}
-
+.card h3{font-size:24px;}
 .card a{
     text-decoration:none;
     color:#d17b88;
     font-size:18px;
 }
 
-/* ================= BOTTOM NOTES ================= */
-
+/* ============ BOTTOM NOTES ============ */
 .bottom{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
     gap:40px;
     padding:40px 60px 80px;
 }
-
 .sticky{
     background:#fff3d9;
     padding:25px;
@@ -181,13 +149,11 @@ body{
     box-shadow:0 5px 15px rgba(0,0,0,0.08);
     transform:rotate(-2deg);
 }
-
 .quote{
     background:#fce4ec;
     transform:rotate(2deg);
     font-family:'Playfair Display', serif;
 }
-
 .age{
     background:#ffe0e0;
     font-size:22px;
@@ -195,26 +161,76 @@ body{
     font-weight:bold;
 }
 
-/* ================= RESPONSIVE ================= */
+/* ============ RESPONSIVE FIXES ============ */
 
-@media(max-width:768px){
-
-.hero{
-    flex-direction:column;
-    text-align:center;
-   
-
-.hero-text h1{
-    font-size:45px;
+/* Tablets */
+@media (max-width:1024px){
+    .hero{
+        flex-direction:column;
+        text-align:center;
+        padding:40px;
+    }
+    .hero-text h1{font-size:55px;}
+    .hero-text p{font-size:20px;}
+    .photo-area{grid-template-columns:repeat(2,1fr);}
+    .polaroid img{
+        height:260px;          /* slightly shorter to match tablet ratio */
+        object-position:50% 25%;
+    }
 }
 
-.sections, .bottom{
-    padding:30px;
+/* Phones */
+@media (max-width:768px){
+    .nav{
+        flex-direction:column;
+        gap:10px;
+        padding:15px 25px;
+    }
+    .nav ul{
+        flex-wrap:wrap;
+        gap:20px;
+        justify-content:center;
+    }
+    .hero{
+        flex-direction:column;
+        text-align:center;
+        padding:30px 20px;
+    }
+    .hero-text h1{font-size:42px;}
+    .hero-text p{font-size:18px;}
+    .photo-area{
+        grid-template-columns:1fr;
+        gap:20px;
+    }
+    .polaroid{
+        transform:rotate(0deg);
+    }
+    /* ✅ natural image height on phone, no face cut */
+    .polaroid img{
+        width:100%;
+        height:auto;
+        max-height:420px;
+        object-fit:contain;
+        object-position:center top;
+    }
+    .sections,.bottom{
+        padding:30px 20px;
+    }
+    .bottom{grid-template-columns:1fr;}
 }
 
+/* Small phones */
+@media (max-width:480px){
+    .hero-text h1{font-size:34px;}
+    .hero-text p{font-size:16px;}
+    .diary-btn{
+        font-size:16px;
+        padding:10px 20px;
+    }
+    .sections,.bottom{padding:20px;}
 }
-
 </style>
+
 </head>
 <body>
 
