@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .form import NoteForm,MemoryForm
 from .models import Note,Memory
+from django.contrib import messages
 
 # Create your views here.
 # / → Home
@@ -36,9 +37,16 @@ def upload_memory(request):
     if request.method == 'POST':
         form = MemoryForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()  # ✅ Cloudinary will handle file upload automatically
-            return redirect('upload_memory')  # or success page
+            form.save()  # Cloudinary handles the upload
+            messages.success(request, "Memory uploaded successfully!")
+            return redirect('upload_memory')
     else:
         form = MemoryForm()
-
-    return render(request, 'upload_memory.html', {'form': form})
+    
+    # Show all memories (optional)
+    memories = Memory.objects.all().order_by('-uploaded_at')
+    
+    return render(request, 'upload_memory.html', {
+        'form': form,
+        'memories': memories
+    })
