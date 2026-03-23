@@ -1,0 +1,128 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Birthday Wishes 💌</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Cute Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+
+    <style>
+        body{
+            margin:0;
+            background-size: cover;
+            font-family: 'Patrick Hand', cursive;
+        }
+
+        .overlay{
+            min-height:100vh;
+            padding-bottom:60px;
+        }
+
+        .title{
+            text-align:center;
+            padding:60px 20px 20px;
+        }
+
+        .title h1{
+            font-family:'Playfair Display', serif;
+            font-size:48px;
+            color:#5a3e36;
+            margin-bottom:10px;
+        }
+
+        .title p{
+            font-size:20px;
+            color:#6b4f4f;
+        }
+
+        /* Masonry Layout */
+        .notes-container{
+            column-count:2;
+            column-gap:90px;
+            padding:40px 60px;
+        }
+
+        .note-card{
+            background:#ECD6CF;
+            padding:20px;
+            margin-bottom:30px;
+            border-radius:14px;
+            box-shadow:0 10px 25px rgba(0,0,0,0.12);
+            display:inline-block;
+            width:100%;
+            transition:0.3s;
+        }
+
+        .note-card:hover{
+            transform:translateY(-6px);
+        }
+
+        .note-message{
+            font-size:20px;
+            color:#5a3e36;
+            word-wrap:break-word;
+        }
+
+        .note-name{
+            margin-top:12px;
+            font-size:16px;
+            color:#d17b88;
+            text-align:right;
+        }
+
+        /* Responsive */
+        @media(max-width:992px){
+            .notes-container{
+                column-count:2;
+            }
+        }
+
+        @media(max-width:600px){
+            .notes-container{
+                column-count:1;
+                padding:20px;
+            }
+            
+            .note-card{
+                width:90%;
+            }
+
+            .title h1{
+                font-size:34px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="overlay">
+
+    {% include "base.html" %}
+
+    <div class="title">
+        <h1>💌 Birthday Wishes</h1>
+        <p>All the love from my beautiful people</p>
+    </div>
+
+    <div class="notes-container">
+        {% for note in notes %}
+            <div class="note-card">
+                <div class="note-message">
+                    "{{ note.message }}"
+                </div>
+                <div class="note-name">
+                    — {{ note.name }}
+                </div>
+            </div>
+        {% empty %}
+            <p style="text-align:center; font-size:22px;">No wishes yet 🥺</p>
+        {% endfor %}
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload a Memory 📸</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Cute Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+
+    <style>
+        body{
+            margin:0;
+             background-size: cover;
+            font-family: 'Patrick Hand', cursive;
+        }
+
+        .overlay{
+            min-height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            padding:40px 20px;
+        }
+
+        .form-container{
+            background:#ECD6CF;
+            padding:40px;
+            border-radius:20px;
+            box-shadow:0 15px 40px rgba(0,0,0,0.15);
+            width:100%;
+            max-width:500px;
+            transition:0.3s;
+        }
+
+        .form-container:hover{
+            transform:translateY(-5px);
+        }
+
+        h1{
+            text-align:center;
+            font-family:'Playfair Display', serif;
+            color:#5a3e36;
+            margin-bottom:30px;
+        }
+
+        form p{
+            margin-bottom:20px;
+        }
+
+        input, textarea{
+            width:94%;
+            padding:10px 15px;
+            border-radius:10px;
+            border:1px solid #ddd;
+            font-family:'Patrick Hand', cursive;
+            font-size:16px;
+        }
+
+        input:focus, textarea:focus{
+            outline:none;
+            border-color:#d17b88;
+            box-shadow:0 0 8px rgba(209,123,136,0.4);
+        }
+
+        button{
+            width:100%;
+            padding:12px;
+            border:none;
+            border-radius:30px;
+            background:#5A3E36;
+            color:white;
+            font-size:18px;
+            cursor:pointer;
+            transition:0.3s;
+            box-shadow:0 6px 15px rgba(209,123,136,0.4);
+        }
+
+        button:hover{
+            background:#d17b88;
+            transform:scale(1.05);
+        }
+
+        @media(max-width:600px){
+            .form-container{
+                padding:25px;
+            }
+
+            h1{
+                font-size:28px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+{% include "base.html" %}
+
+<div class="overlay">
+    <div class="form-container">
+        <form action="" method="POST" enctype="multipart/form-data">
+            <h1>📸 Upload a Memory</h1>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit Memory ❤</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

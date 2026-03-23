@@ -1,0 +1,305 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday Hani</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+    margin:0;
+    font-family:'Patrick Hand', cursive;
+    {% comment %} background:url("{% static 'bg1.png' %}") no-repeat center center fixed; {% endcomment %}
+    background-size:cover;
+    color:#5a3e36;
+}
+
+/* ================= NAVBAR ================= */
+
+.nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 60px;
+}
+
+.nav h2{
+    font-family:'Playfair Display', serif;
+}
+
+.nav ul{
+    display:flex;
+    list-style:none;
+    gap:40px;
+}
+
+.nav ul li a{
+    text-decoration:none;
+    color:#5a3e36;
+    font-size:20px;
+}
+
+/* ================= HERO ================= */
+
+.hero{
+    padding:60px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+}
+
+.hero-text{
+    flex:1;
+    min-width:300px;
+}
+
+.hero-text h1{
+    font-family:'Playfair Display', serif;
+    font-size:70px;
+    margin:0;
+}
+
+.hero-text span{
+    color:#d17b88;
+}
+
+.hero-text p{
+    font-size:24px;
+    margin:20px 0;
+}
+
+.diary-btn{
+    display:inline-block;
+    padding:12px 30px;
+    background:#5A3E36;
+    border-radius:30px;
+    text-decoration:none;
+    color:white;
+    font-size:18px;
+    transition:0.3s;
+}
+
+.diary-btn:hover{
+    background:#d17b88;
+    transform:scale(1.05);
+}
+
+/* ================= POLAROIDS ================= */
+
+.photo-area{
+    flex:1;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:25px;
+    min-width:320px;
+}
+
+.polaroid{
+    background:#ECD6CF;
+    padding:10px 10px 30px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+    border-radius:6px;
+    transform:rotate(-3deg);
+}
+
+
+.polaroid img{
+    width:100%;
+    height:200px;
+    object-fit:cover;
+    border-radius:4px;
+  
+} 
+
+/* 👇 image 1 */
+.img1 {
+    object-position: 50% 30%;
+}
+
+/* 👇 image 4 */
+.img4 {
+    object-position: 50% 35%;
+}
+
+.polaroid:nth-child(2){ transform:rotate(4deg); }
+.polaroid:nth-child(3){ transform:rotate(2deg); }
+.polaroid:nth-child(4){ transform:rotate(-4deg); }
+
+.polaroid:nth-child(1) img {
+    object-position: 60% 30%;
+}
+
+.polaroid:nth-child(4) img {
+    object-position: 60% 35%;
+}
+
+
+/* ================= CARDS ================= */
+
+.sections{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:30px;
+    padding:60px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:20px;
+    box-shadow:0 6px 20px rgba(0,0,0,0.08);
+    text-align:center;
+}
+
+.card h3{
+    font-size:24px;
+}
+
+.card a{
+    text-decoration:none;
+    color:#d17b88;
+    font-size:18px;
+}
+
+/* ================= BOTTOM NOTES ================= */
+
+.bottom{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:40px;
+    padding:40px 60px 80px;
+}
+
+.sticky{
+    background:#fff3d9;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+    transform:rotate(-2deg);
+}
+
+.quote{
+    background:#fce4ec;
+    transform:rotate(2deg);
+    font-family:'Playfair Display', serif;
+}
+
+.age{
+    background:#ffe0e0;
+    font-size:22px;
+    text-align:center;
+    font-weight:bold;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:768px){
+
+.hero{
+    flex-direction:column;
+    text-align:center;
+}
+
+.hero-text h1{
+    font-size:45px;
+}
+
+.sections, .bottom{
+    padding:30px;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+{% include "base.html" %}
+
+<!-- HERO -->
+<div class="hero">
+
+    <div class="hero-text">
+        <h1>𝓗𝓪𝓹𝓹𝔂 𝓑𝓲𝓻𝓽𝓱𝓭𝓪𝔂, <span>𝓗𝓪𝓷𝓲</span></h1>
+        <p>This is my day, my story, my world.</p>
+        <a href="{% url 'write_note' %}" class="diary-btn">Write a note →</a>
+    </div>
+
+    <div class="photo-area">
+
+        <div class="polaroid" >
+            <img src="{% static 'p1.jpeg' %}">
+        </div>
+
+        <div class="polaroid">
+            <img src="{% static 'pic2.jpeg' %}">
+        </div>
+
+        <div class="polaroid" >
+            <img src="{% static 'p3.jpeg' %}">
+        </div>
+
+        <div class="polaroid">
+            <img src="{% static 'p4.jpeg' %}">
+        </div>
+
+    </div>
+
+</div>
+
+<!-- CARDS -->
+<div class="sections">
+
+    <div class="card">
+        <h3>📖 My Story</h3>
+        <a href="#">A little about me →</a>
+    </div>
+
+    <div class="card">
+        <h3>📸 Upload a Memory</h3>
+        <a href="{% url 'upload_memory' %}">Our favorite memories →</a>
+    </div>
+
+    <div class="card">
+        <h3>📝 Notes</h3>
+        <a href="{% url 'notes' %}">Thoughts & Dreams →</a>
+    </div>
+
+    <div class="card">
+        <h3>💞 Memories</h3>
+        <a href="{% url 'memories' %}">The best days →</a>
+    </div>
+
+</div>
+
+<!-- BOTTOM NOTES -->
+<div class="bottom">
+
+    <div class="sticky" style="background:#EEBC93">
+        <h3>𝗧𝗼𝗱𝗮𝘆 𝗜 𝘄𝗶𝘀𝗵 𝗳𝗼𝗿...</h3>
+        ♡ 𝑳𝒐𝒗𝒆<br>
+        ♡ 𝑻𝒓𝒂𝒗𝒆𝒍<br>
+        ♡ 𝑷𝒆𝒂𝒄𝒆<br>
+        ♡ 𝑯𝒂𝒑𝒑𝒊𝒏𝒆𝒔𝒔 
+    </div>
+
+    <div class="sticky quote" style="background:#ECD6CF">
+        <h3>𝗠𝘆 𝗳𝗮𝘃𝗼𝘂𝗿𝗶𝘁𝗲 𝗤𝘂𝗼𝘁𝗲:</h3>
+        We were never the same.You were December 31,And I was January 1.If you wanted, you could reach me in a day. To reach you, I had to wait 364 days.
+    </div>
+
+    <div class="sticky age">
+        365 days older,<br>
+        ∞ dreams bigger 🎂
+    </div>
+
+</div>
+
+{% include "footer.html" %}
+</body>
+</html>

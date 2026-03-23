@@ -1,0 +1,226 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+
+<style>
+    body {
+        margin: 0;
+    }
+
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 40px;
+        position: relative;
+    }
+
+    /* Logo */
+    .logo a {
+        font-size: 26px;
+        text-decoration: none;
+        color: #5a3e36;
+        font-weight: bold;
+    }
+
+    /* Links */
+    .nav-links {
+        display: flex;
+        gap: 30px;
+        font-weight: bold;
+        align-items: center;
+    }
+
+    .nav-links a {
+        text-decoration: none;
+        color: #6b4f4f;
+        font-size: 18px;
+        position: relative;
+        transition: 0.3s;
+    }
+
+    .nav-links a:hover {
+        color: #d17b88;
+    }
+
+    .nav-links a::after {
+        content: "";
+        position: absolute;
+        width: 0%;
+        height: 2px;
+        bottom: -5px;
+        left: 0;
+        background-color: #d17b88;
+        transition: 0.3s;
+        color: white;
+    }
+
+    .nav-links a:hover::after {
+        width: 100%;
+    }
+
+    /* Music Button */
+    .music-btn {
+        background:#E7CFC3;
+        border: none;
+        padding: 8px 18px;
+        border-radius: 20px;
+        font-size: 16px;
+        cursor: pointer;
+        font-family: 'Patrick Hand', cursive;
+        transition: 0.3s;
+        box-shadow: 0 4px 10px rgba(209, 123, 136, 0.4);
+        color:#5a3e36;
+        font-weight:bold;
+        width: 150px;
+        text-decoration: none;
+        text-align: center;
+    }
+
+    .music-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+    .music-icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    .music-btn:hover {
+        transform: scale(1.05);
+        text-decoration: none;
+
+        
+    }
+
+    /* Hamburger */
+    .menu-toggle {
+        display: none;
+        font-size: 28px;
+        cursor: pointer;
+        color: #5a3e36;
+    }
+
+
+    /* ================= MOBILE ================= */
+    @media (max-width: 768px) {
+
+        nav {
+            padding: 15px 20px;
+        }
+
+        .menu-toggle {
+            display: block;
+        }
+
+        .nav-links {
+            position: absolute;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            background: white;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            padding: 20px 0;
+            display: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .nav-links.active {
+            display: flex;
+        }
+
+        /* Show music button inside menu */
+        .music-btn {
+            width: auto;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">
+        <a href="/">𝓗𝓪𝓷𝓲 ❤</a>
+    </div>
+
+    <!-- Hamburger -->
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+    <!-- Links -->
+    <div class="nav-links">
+        <a href="/">𝑯𝒐𝒎𝒆</a>
+        <a href="/notes/">𝑵𝒐𝒕𝒆𝒔</a>
+        <a href="/memories/">𝑴𝒆𝒎𝒐𝒓𝒊𝒆𝒔</a>
+        <a href="/my-story/">𝑴𝒚 𝑺𝒕𝒐𝒓𝒚</a>
+
+       <a href="#" class="music-btn" onclick="toggleMusic()">
+    <img src="{% static 'musical-note.png' %}" alt="music" class="music-icon">
+    Play My Song
+</a>
+        
+        <audio id="birthdaySong" src="{% static 'song.mp3' %}" loop></audio>
+    </div>
+</nav>
+
+<script>
+let song = document.getElementById("birthdaySong");
+let btn = document.querySelector(".music-btn");
+
+// Restore state
+window.addEventListener("load", () => {
+    let isPlaying = localStorage.getItem("musicPlaying");
+    let time = localStorage.getItem("musicTime");
+
+    if (time) {
+        song.currentTime = parseFloat(time);
+    }
+
+    if (isPlaying === "true") {
+        song.play();
+        btn.innerHTML = "⏸ Pause Music";
+    }
+});
+
+// Save time
+setInterval(() => {
+    localStorage.setItem("musicTime", song.currentTime);
+}, 1000);
+
+// Toggle music
+function toggleMusic() {
+    if (song.paused) {
+        song.play();
+        localStorage.setItem("musicPlaying", "true");
+        btn.innerHTML = "⏸ Pause Music";
+    } else {
+        song.pause();
+        localStorage.setItem("musicPlaying", "false");
+        btn.innerHTML = "Play Music";
+    }
+}
+
+// Toggle menu
+function toggleMenu() {
+    document.querySelector(".nav-links").classList.toggle("active");
+}
+
+// Close menu on click
+document.querySelectorAll(".nav-links a").forEach(link => {
+    link.addEventListener("click", () => {
+        document.querySelector(".nav-links").classList.remove("active");
+    });
+});
+</script>
+
+</body>
+</html>

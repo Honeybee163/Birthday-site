@@ -1,0 +1,191 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Memories 📸</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Cute Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+
+    <style>
+        body{
+            margin:0;
+           
+            background-size: cover;
+            font-family: 'Patrick Hand', cursive;
+        }
+
+        .overlay{
+            min-height:100vh;
+            padding-bottom:60px;
+        }
+
+        .title{
+            text-align:center;
+            padding:60px 20px 30px;
+        }
+
+        .title h1{
+            font-family:'Playfair Display', serif;
+            font-size:48px;
+            color:#5a3e36;
+        }
+
+        /* Masonry Layout */
+        .gallery{
+            column-count:2;
+            column-gap:90px;
+            padding:40px 60px;
+        }
+
+        .photo-card{
+            background:#ECD6CF;
+            padding:12px 12px 25px;
+            margin-bottom:30px;
+            border-radius:10px;
+            box-shadow:0 12px 30px rgba(0,0,0,0.12);
+            display:inline-block;
+            width:100%;
+            transition:0.3s;
+        }
+
+        .photo-card:hover{
+            transform:translateY(-6px);
+        }
+
+        .photo-card img{
+            width:100%;
+            height:auto;          
+            border-radius:6px;
+            margin-bottom:10px;
+            object-fit:contain;   
+            cursor:pointer; /* indicate click */
+        }
+
+        .caption{
+            font-size:18px;
+            color:#5a3e36;
+        }
+
+        .name{
+            font-size:15px;
+            color:#d17b88;
+            text-align:right;
+            margin-top:6px;
+        }
+
+        /* Responsive */
+        @media(max-width:992px){
+            .gallery{
+                column-count:2;
+            }
+        }
+
+        @media(max-width:600px){
+            .gallery{
+                column-count:1;
+                padding:20px;
+            }
+            .photo-card{
+                width:90%;
+            }
+
+            .title h1{
+                font-size:34px;
+            }
+        }
+
+        /* Lightbox Styles */
+        #lightbox{
+            position:fixed;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            background:rgba(0,0,0,0.8);
+            display:none;
+            justify-content:center;
+            align-items:center;
+            z-index:999;
+        }
+
+        #lightbox img{
+            max-width:90%;
+            max-height:90%;
+            border-radius:10px;
+            box-shadow:0 20px 40px rgba(0,0,0,0.5);
+            animation: zoomIn 0.3s ease;
+        }
+
+        @keyframes zoomIn{
+            from { transform:scale(0.7); opacity:0; }
+            to { transform:scale(1); opacity:1; }
+        }
+
+        #closeBtn{
+            position:absolute;
+            top:20px;
+            right:40px;
+            font-size:40px;
+            color:white;
+            cursor:pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="overlay">
+
+    {% include "base.html" %}
+
+    <div class="title">
+        <h1>📸 Birthday Memories</h1>
+    </div>
+
+    <div class="gallery">
+        {% for pic in pics %}
+            <div class="photo-card">
+                <img src="{{ pic.photo.url }}" alt="Memory">
+                <div class="caption">{{ pic.caption }}</div>
+                <div class="name">— {{ pic.name }}</div>
+            </div>
+        {% empty %}
+            <p style="text-align:center; font-size:22px;">No memories yet 🥺</p>
+        {% endfor %}
+    </div>
+
+</div>
+
+<!-- Lightbox Modal -->
+<div id="lightbox">
+    <span id="closeBtn">&times;</span>
+    <img id="lightboxImg">
+</div>
+
+<script>
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightboxImg");
+    const closeBtn = document.getElementById("closeBtn");
+
+    document.querySelectorAll(".photo-card img").forEach(img => {
+        img.addEventListener("click", () => {
+            lightbox.style.display = "flex";
+            lightboxImg.src = img.src;
+        });
+    });
+
+    closeBtn.addEventListener("click", () => {
+        lightbox.style.display = "none";
+    });
+
+    lightbox.addEventListener("click", (e) => {
+        if(e.target !== lightboxImg){
+            lightbox.style.display = "none";
+        }
+    });
+</script>
+
+</body>
+</html>
